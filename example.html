@@ -1,0 +1,85 @@
+<body>
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script><script>
+var $j = jQuery.noConflict();
+</script>
+<div id="mainContent">
+Please indicate whether you&#39;d like to include the following sessions in the curriculum for the ${e://Field/Track} track. You will be asked to rank included sessions on the next page.
+<div>(click <span class='glyphicon glyphicon glyphicon-info-sign'></span> for session info)</div>
+
+<div aria-labelledby="sessionModalLabel" class="modal fade" id="sessionModal" role="dialog" tabindex="-1">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header"><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+
+<h4 class="modal-title" id="sessionModalLabel">Session Information</h4>
+</div>
+
+<div class="modal-body">
+<h5>Session Description</h5>
+
+<p>Loading...</p>
+
+<hr />
+<h5>Session Track(s)</h5>
+
+<p>Loading...</p>
+
+<hr />
+<h5>Session Difficulty</h5>
+
+<p>Loading...</p>
+</div>
+
+<div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" type="button">Close</button></div>
+</div>
+</div>
+</div>
+
+<ul>
+<li>Example 1<span data-id=0 data-toggle='modal' class='glyphicon glyphicon glyphicon-info-sign' aria-hidden='true' style='cursor: pointer;' data-target='#sessionModal'></span></li>
+<li>Example 2<span data-id=1 data-toggle='modal' class='glyphicon glyphicon glyphicon-info-sign' aria-hidden='true' style='cursor: pointer;' data-target='#sessionModal'></span></li>
+<li>Example 3<span data-id=2 data-toggle='modal' class='glyphicon glyphicon glyphicon-info-sign' aria-hidden='true' style='cursor: pointer;' data-target='#sessionModal'></span></li>
+</ul>
+
+
+</div>
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet" /><!-- Optional theme -->
+<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" rel="stylesheet" /><!-- Latest compiled and minified JavaScript --><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+$j(document).ready(function()
+{
+	$j('#sessionModal').on('show.bs.modal', function (event) {
+	  var button = $j(event.relatedTarget) // Button that triggered the modal
+	  var id = button.data('id')
+	  var modal = $j(this)
+	  $j.getJSON("https://api.myjson.com/bins/c8wln",function(data){
+		var session = data[id]
+		if(session != null){
+			modal.find('.modal-title').html('Session: ' + session.Title)
+			modal.find('.modal-body p:nth-of-type(1)').html(session.Description)
+			modal.find('.modal-body p:nth-of-type(2)').text(session["Track(s)"])
+			modal.find('.modal-body p:nth-of-type(3)').text(session.Skill)
+		}
+		else{
+			modal.find('.modal-title').text('Session: ' + "Cannot Load Data")
+			modal.find('.modal-body p:nth-of-type(1)').html("Cannot Load Data")
+			modal.find('.modal-body p:nth-of-type(2)').text("Cannot Load Data")
+			modal.find('.modal-body p:nth-of-type(3)').text("Cannot Load Data")
+		}
+	  }).fail(function(){
+		modal.find('.modal-title').text('Session: ' + "Cannot Load Data")
+		modal.find('.modal-body p:nth-of-type(1)').html("Cannot Load Data")
+		modal.find('.modal-body p:nth-of-type(2)').text("Cannot Load Data")
+		modal.find('.modal-body p:nth-of-type(3)').text("Cannot Load Data")
+	  })
+	})
+	console.log("handler loaded.")
+});
+</script>
+
+</body>

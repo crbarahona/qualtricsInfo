@@ -1,0 +1,24 @@
+[
+{
+"id": 0,
+"Title": "Example 1",
+"Track(s)": "Web Development and Applications",
+"Skill": "Beginner",
+},
+"Description": "This is an example of a session description."
+},
+{
+"id": 1,
+"Title": "Example 2",
+"Track(s)": "Technology and Security Policy",
+"Skill": "Beginner",
+"Description": "This is an example of a session description."
+},
+{
+"id": 2,
+"Title": "Example 3",
+"Track(s)": "Teaching, Learning, and Research",
+"Skill": "Intermediate",
+"Description": "This is an example of a session description."
+}
+]
